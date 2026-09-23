@@ -1,0 +1,233 @@
+---
+// Cartelera.astro
+---
+
+<section class="relative w-full py-8 px-4" id="seccion-cartelera">
+    <!-- TÍTULO -->
+    <div class="text-center mb-8 opacity-0" id="cartelera-titulo">
+        <div class="flex items-center justify-center gap-3 mb-4">
+            <div class="h-px w-16 bg-[#9C7A2E]/40"></div>
+            <span class="text-[#9C7A2E] text-base">✦</span>
+            <div class="h-px w-16 bg-[#9C7A2E]/40"></div>
+        </div>
+        <h3
+            class="text-[#9C7A2E] tracking-[0.2em] uppercase text-xl md:text-2xl font-semibold mb-2"
+        >
+            Cartelera Musical
+        </h3>
+        <p class="font-charm text-[#0F3D2E] text-2xl md:text-3xl">
+            Junto a los mejores grupos del momento
+        </p>
+        <div class="flex items-center justify-center gap-3 mt-4">
+            <div class="h-px w-16 bg-[#9C7A2E]/40"></div>
+            <span class="text-[#9C7A2E] text-base">✦</span>
+            <div class="h-px w-16 bg-[#9C7A2E]/40"></div>
+        </div>
+    </div>
+
+    <!-- LISTA UNA COLUMNA (4 grupos) -->
+    <div class="max-w-lg mx-auto flex flex-col gap-4" id="cartelera-grid">
+    </div>
+
+    <!-- Crédito inferior -->
+    <div
+        class="flex items-center justify-center gap-4 mt-8 opacity-0"
+        id="credito-cartelera"
+    >
+        <div
+            style="height:1px; flex:1; max-width:80px; background: linear-gradient(to right, transparent, #9C7A2E);"
+        >
+        </div>
+        <span
+            class="text-[#9C7A2E]/60 text-xs tracking-[0.3em] uppercase font-charm"
+            >Música en vivo</span
+        >
+        <div
+            style="height:1px; flex:1; max-width:80px; background: linear-gradient(to left, transparent, #9C7A2E);"
+        >
+        </div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    const grupos = [
+        { nombre: "Tomy Laser",          imagen: "/imagenes/tomylaser.webp" },
+        { nombre: "Agrupación Tornado",  imagen: "/imagenes/agrupaciontornado.webp" },
+        { nombre: "Cristian José",       imagen: "/imagenes/cristianjose.webp" },
+        { nombre: "Florida Vásquez",     imagen: "/imagenes/floritavasquez.webp" },
+    ];
+
+    function crearBrasa(card: HTMLElement) {
+        const p = document.createElement("div");
+        const size = Math.random() * 3 + 2;
+        const esRedonda = Math.random() > 0.4;
+        const startX = Math.random() * 86 + 7;
+        const totalY = Math.random() * 80 + 60;
+        const swayX = (Math.random() - 0.5) * 40;
+        const duracion = Math.random() * 1.8 + 2.2;
+
+        p.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${esRedonda ? size : size * 1.6}px;
+            background: radial-gradient(circle at 40% 40%, #F0D97A, #C9A84C, #9C7A2E);
+            border-radius: ${esRedonda ? "50%" : "40% 60% 50% 50%"};
+            pointer-events: none;
+            z-index: 30;
+            left: ${startX}%;
+            bottom: 8px;
+            opacity: 0;
+            box-shadow: 0 0 ${size + 2}px rgba(230,190,80,0.7);
+            transform: rotate(${Math.random() * 360}deg);
+        `;
+        card.appendChild(p);
+
+        const tl = gsap.timeline({
+            onComplete: () => p.remove(),
+        });
+
+        tl.to(p, {
+            opacity: Math.random() * 0.4 + 0.55,
+            duration: 0.4,
+            ease: "power1.out",
+        })
+        .to(p, {
+            y: -totalY * 0.5,
+            x: swayX * 0.5,
+            rotation: `+=${Math.random() * 120 - 60}`,
+            duration: duracion * 0.5,
+            ease: "none",
+        }, 0)
+        .to(p, {
+            y: -totalY,
+            x: swayX,
+            opacity: 0,
+            rotation: `+=${Math.random() * 120 - 60}`,
+            duration: duracion * 0.5,
+            ease: "power1.in",
+        });
+    }
+
+    function crearCard(g: { nombre: string; imagen: string }) {
+        // Wrapper externo: position relative y overflow visible para partículas
+        const card = document.createElement("div");
+        card.className = "grupo-card opacity-0";
+        card.style.cssText = `
+            width: 100%;
+            position: relative;
+            border-radius: 16px;
+            border: 1px solid rgba(156,122,46,0.25);
+            overflow: visible;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        `;
+
+        // Inner: contiene header + imagen, con overflow hidden para respetar el radius
+        card.innerHTML = `
+            <div class="card-inner" style="
+                border-radius: 16px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                background: #ffffff;
+            ">
+                <div style="
+                    padding: 9px 10px 8px;
+                    text-align: center;
+                    background: #9C7A2E;
+                ">
+                    <p style="
+                        color: #ffffff;
+                        font-size: 11px;
+                        letter-spacing: 0.15em;
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        line-height: 1.2;
+                    ">${g.nombre}</p>
+                </div>
+                <div style="background: #ffffff;">
+                    <img
+                        src="${g.imagen}"
+                        alt="${g.nombre}"
+                        class="card-img"
+                        style="
+                            width: 100%;
+                            height: auto;
+                            display: block;
+                            transition: transform 0.5s ease;
+                        "
+                        onerror="this.style.opacity='0.3'"
+                    />
+                </div>
+            </div>
+        `;
+
+        return card;
+    }
+
+    function iniciarLoopParticulas(card: HTMLElement) {
+        const delay = Math.random() * 2000;
+        function emitir() {
+            crearBrasa(card);
+            setTimeout(emitir, Math.random() * 400 + 300);
+        }
+        setTimeout(emitir, delay);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const grid = document.getElementById("cartelera-grid");
+
+        grupos.forEach((g) => {
+            if (!grid) return;
+            grid.appendChild(crearCard(g));
+        });
+
+        gsap.set("#cartelera-titulo", { opacity: 0, y: 20 });
+        gsap.set("#credito-cartelera", { opacity: 0 });
+        gsap.set(".grupo-card", { opacity: 0, y: 24 });
+
+        ScrollTrigger.create({
+            trigger: "#seccion-cartelera",
+            start: "top 85%",
+            onEnter: () => {
+                const tl = gsap.timeline();
+                tl.to("#cartelera-titulo", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.9,
+                    ease: "power3.out",
+                })
+                    .to(
+                        ".grupo-card",
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.6,
+                            ease: "power2.out",
+                            stagger: 0.07,
+                        },
+                        "-=0.4",
+                    )
+                    .to(
+                        "#credito-cartelera",
+                        { opacity: 1, duration: 0.6 },
+                        "-=0.2",
+                        )
+                    .call(() => {
+                        document.querySelectorAll<HTMLElement>(".grupo-card").forEach(c => iniciarLoopParticulas(c));
+                    });
+            },
+            onLeaveBack: () => {
+                gsap.set("#cartelera-titulo", { opacity: 0, y: 20 });
+                gsap.set(".grupo-card", { opacity: 0, y: 24 });
+                gsap.set("#credito-cartelera", { opacity: 0 });
+            },
+        });
+    });
+</script>
