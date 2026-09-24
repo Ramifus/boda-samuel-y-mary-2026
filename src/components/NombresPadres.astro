@@ -118,6 +118,27 @@
         </div>
       </div>
 
+      <!-- Padrinos de torta -->
+      <div class="space-y-4 opacity-0" id="padrinos-torta">
+        <h4
+          class="text-[#9C7A2E] tracking-[0.2em] uppercase text-lg md:text-2xl lg:text-2xl xl:text-3xl font-semibold"
+        >
+          Padrinos de torta
+        </h4>
+        <div class="space-y-2">
+          <p
+            class="font-charm text-[#0F3D2E] text-xl md:text-3xl lg:text-3xl xl:text-4xl"
+          >
+            Ing. Cristhian Veliz Claros
+          </p>
+          <p
+            class="font-charm text-[#0F3D2E] text-xl md:text-3xl lg:text-3xl xl:text-4xl"
+          >
+            Lic. Jimena Condori Potosi
+          </p>
+        </div>
+      </div>
+
       <!-- Padrinos de decoración -->
       <div class="space-y-4 opacity-0" id="padrinos-decoracion">
         <h4
@@ -214,10 +235,11 @@
     gsap.set("#padres-novia", { opacity: 0, x: 30, y: 15 });
     gsap.set("#padrinos-civil", { opacity: 0, x: -30, y: 15 });
     gsap.set("#padrinos-anillos", { opacity: 0, x: 30, y: 15 });
-    gsap.set("#padrinos-decoracion", { opacity: 0, x: -30, y: 15 });
-    gsap.set("#padrinos-conteo", { opacity: 0, x: 30, y: 15 });
-    gsap.set("#padrinos-sorpresa", { opacity: 0, x: -30, y: 15 });
-    gsap.set("#padrinos-video", { opacity: 0, x: 30, y: 15 });
+    gsap.set("#padrinos-torta", { opacity: 0, x: -30, y: 15 });
+    gsap.set("#padrinos-decoracion", { opacity: 0, x: 30, y: 15 });
+    gsap.set("#padrinos-conteo", { opacity: 0, x: -30, y: 15 });
+    gsap.set("#padrinos-sorpresa", { opacity: 0, x: 30, y: 15 });
+    gsap.set("#padrinos-video", { opacity: 0, x: -30, y: 15 });
 
     // Flores laterales (ENCIMA)
     gsap.set("#hoja-familia-izq", {
@@ -312,6 +334,18 @@
           )
           // Padrinos - Desliza desde izquierda
           .to(
+            "#padrinos-torta",
+            {
+              opacity: 1,
+              x: 0,
+              y: 0,
+              duration: 1.2,
+              ease: "power2.out",
+            },
+            0.9,
+          )
+          // Padrinos - Desliza desde derecha
+          .to(
             "#padrinos-decoracion",
             {
               opacity: 1,
@@ -322,7 +356,7 @@
             },
             1.0,
           )
-          // Padrinos - Desliza desde derecha
+          // Padrinos - Desliza desde izquierda
           .to(
             "#padrinos-conteo",
             {
@@ -334,7 +368,7 @@
             },
             1.2,
           )
-          // Padrinos - Desliza desde izquierda
+          // Padrinos - Desliza desde derecha
           .to(
             "#padrinos-sorpresa",
             {
@@ -346,7 +380,7 @@
             },
             1.4,
           )
-          // Padrinos - Desliza desde derecha
+          // Padrinos - Desliza desde izquierda
           .to(
             "#padrinos-video",
             {
@@ -515,7 +549,7 @@
         const tl = gsap.timeline();
 
         tl.to(
-          "#padres-novio, #padres-novia, #padrinos-civil, #padrinos-anillos, #padrinos-decoracion, #padrinos-conteo, #padrinos-sorpresa, #padrinos-video, #hoja-familia-izq, #hoja-familia-der, .hoja-dorada-izq, .hoja-dorada-der",
+          "#padres-novio, #padres-novia, #padrinos-civil, #padrinos-anillos, #padrinos-torta, #padrinos-decoracion, #padrinos-conteo, #padrinos-sorpresa, #padrinos-video, #hoja-familia-izq, #hoja-familia-der, .hoja-dorada-izq, .hoja-dorada-der",
           {
             opacity: 0,
             duration: 0.6,
@@ -543,23 +577,28 @@
             "<",
           )
           .to(
-            "#padrinos-decoracion",
+            "#padrinos-torta",
             { x: -30, y: 15, duration: 0.6, ease: "power2.in" },
+            "<",
+          )
+          .to(
+            "#padrinos-decoracion",
+            { x: 30, y: 15, duration: 0.6, ease: "power2.in" },
             "<",
           )
           .to(
             "#padrinos-conteo",
-            { x: 30, y: 15, duration: 0.6, ease: "power2.in" },
-            "<",
-          )
-          .to(
-            "#padrinos-sorpresa",
             { x: -30, y: 15, duration: 0.6, ease: "power2.in" },
             "<",
           )
           .to(
-            "#padrinos-video",
+            "#padrinos-sorpresa",
             { x: 30, y: 15, duration: 0.6, ease: "power2.in" },
+            "<",
+          )
+          .to(
+            "#padrinos-video",
+            { x: -30, y: 15, duration: 0.6, ease: "power2.in" },
             "<",
           )
           .to(
