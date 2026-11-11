@@ -217,6 +217,27 @@
           </p>
         </div>
       </div>
+
+      <!-- Padrinos de música -->
+      <div class="space-y-4 opacity-0" id="padrinos-musica">
+        <h4
+          class="text-[#9C7A2E] tracking-[0.2em] uppercase text-lg md:text-2xl lg:text-2xl xl:text-3xl font-semibold"
+        >
+          Padrino de música
+        </h4>
+        <div class="space-y-2">
+          <p
+            class="font-charm text-[#0F3D2E] text-xl md:text-3xl lg:text-3xl xl:text-4xl"
+          >
+            Ing. José Fernando Quispe Mallon
+          </p>
+          <p
+            class="font-charm text-[#0F3D2E] text-xl md:text-3xl lg:text-3xl xl:text-4xl"
+          >
+            Sra. Rosmery Martínez Ortiz
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -240,6 +261,7 @@
     gsap.set("#padrinos-conteo", { opacity: 0, x: -30, y: 15 });
     gsap.set("#padrinos-sorpresa", { opacity: 0, x: 30, y: 15 });
     gsap.set("#padrinos-video", { opacity: 0, x: -30, y: 15 });
+    gsap.set("#padrinos-musica", { opacity: 0, x: 30, y: 15 });
 
     // Flores laterales (ENCIMA)
     gsap.set("#hoja-familia-izq", {
@@ -391,6 +413,17 @@
               ease: "power2.out",
             },
             1.6,
+          )
+          .to(
+            "#padrinos-musica",
+            {
+              opacity: 1,
+              x: 0,
+              y: 0,
+              duration: 1.2,
+              ease: "power2.out",
+            },
+            1.8,
           )
           // 4️⃣ FLORES LATERALES (ENCIMA) - Caída suave
           .to(
